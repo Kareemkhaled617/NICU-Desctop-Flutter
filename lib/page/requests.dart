@@ -14,26 +14,34 @@ class _RequestState extends State<Requests> {
   CollectionReference request = Firestore.instance.collection('Request');
   String? name;
   List req = [];
+  String? id;
 
-  getReq() {
-    print('--------------');
-  }
-
-  getPosts() async {
-    print('--------------');
-    CollectionReference pp = Firestore.instance.collection('Request');
-    await pp.get().then((value) =>
-        value.forEach((element) {
+  getRequest() async {
+    CollectionReference pp = Firestore.instance
+        .collection('hospital')
+        .document('20')
+        .collection('Request');
+    await pp.get().then((value) => value.forEach((element) {
           setState(() {
             req.add(element.map);
           });
         }));
-    print(req[0]['Name']);
+  }
+
+  getID() async {
+    DocumentReference pp =
+        Firestore.instance.collection('hospital').document('20');
+    await pp.get().then((value) {
+      setState(() {
+        id = value.map['id'];
+      });
+    });
   }
 
   @override
   void initState() {
-    getPosts();
+    getID();
+    getRequest();
     super.initState();
   }
 
@@ -42,100 +50,99 @@ class _RequestState extends State<Requests> {
     return Scaffold(
       body: ListView.builder(
         itemCount: req.length,
-        itemBuilder: (context, index) =>
-            Container(
-              margin:
+        itemBuilder: (context, index) => Container(
+          margin:
               const EdgeInsets.only(left: 30, right: 30, bottom: 10, top: 10),
-              padding: const EdgeInsets.only(left: 30, bottom: 20, top: 10),
-              decoration: const BoxDecoration(
-                color: Colors.grey,
+          padding: const EdgeInsets.only(left: 30, bottom: 20, top: 10),
+          decoration: const BoxDecoration(
+            color: Colors.grey,
+          ),
+          width: MediaQuery.of(context).size.width / 2,
+          height: 100,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              req[index]['image'] == 'null'
+                  ? const CircleAvatar(
+                      radius: 30,
+                      child: Icon(Icons.person),
+                    )
+                  : CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(req[index]['image']),
+                    ),
+              const SizedBox(
+                width: 15,
               ),
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width / 2,
-              height: 100,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  req[index]['image'] == 'null'
-                      ? const CircleAvatar(
-                    radius: 30,
-                    child: Icon(Icons.person),
-                  )
-                      : CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(req[index]['image']),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Name :',
-                            style: GoogleFonts.archivo(
-                                fontSize: 23,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black87),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            req[index]['name'],
-                            style: GoogleFonts.adamina(
-                                fontSize: 19,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black87),
-                          ),
-                        ],
+                      Text(
+                        'Name :',
+                        style: GoogleFonts.archivo(
+                            fontSize: 23,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black87),
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            'Email :',
-                            style: GoogleFonts.archivo(
-                                fontSize: 23,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Text(
-                              req[index]['Email'],
-                              style: GoogleFonts.adamina(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.lightBlue.shade900),
-                            ),
-                          ),
-                        ],
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        req[index]['name'],
+                        style: GoogleFonts.adamina(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87),
                       ),
                     ],
                   ),
-                 Expanded(child: Container()),
-                  ElevatedButton.icon(onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => MoreDetails(name: req[index]['name'],
-                        gender:  req[index]['Gender'],
-                          image:  req[index]['image'],
-                          birthday:  req[index]['Birthday'],
-                          email:  req[index]['Email'],
-                          weight:  req[index]['Weight'],
-
-                        )));
-                  }, icon: const Icon(Icons.read_more_rounded), label: const Text('More'))
+                  Row(
+                    children: [
+                      Text(
+                        'Email :',
+                        style: GoogleFonts.archivo(
+                            fontSize: 23,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black87),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          req[index]['Email'],
+                          style: GoogleFonts.adamina(
+                              fontSize: 19,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.lightBlue.shade900),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
-            ),
+              Expanded(child: Container()),
+              ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => MoreDetails(
+                              name: req[index]['name'],
+                              gender: req[index]['Gender'],
+                              image: req[index]['image'],
+                              birthday: req[index]['Birthday'],
+                              email: req[index]['Email'],
+                              weight: req[index]['Weight'],
+                            )));
+                  },
+                  icon: const Icon(Icons.read_more_rounded),
+                  label: const Text('More'))
+            ],
+          ),
+        ),
       ),
     );
   }

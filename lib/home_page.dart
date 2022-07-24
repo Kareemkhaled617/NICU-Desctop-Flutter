@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:nicu_desctop/login.dart';
 import 'package:nicu_desctop/page/chat.dart';
 import 'package:nicu_desctop/page/profile.dart';
@@ -30,7 +29,6 @@ class _MyHomePageState extends State<MyHomePage> {
     const Requests(),
     const Chat(),
     const Profile(),
-
   ];
 
   @override

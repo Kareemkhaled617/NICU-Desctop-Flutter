@@ -8,17 +8,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'home_page.dart';
 import 'login.dart';
 
-const apiKey = "AIzaSyDPFGG_vFM1WgPnPZtYNWNgHfX3Y-F3usA";
-const projectId = "project-e8203";
+const apiKey = "AIzaSyCGxQIpOdcAQrKwOM6foW4KNLRAhjiD5As";
+const projectId = "nicu-aaa44";
 
 FirebaseOptions get firebaseOptions => const FirebaseOptions(
-      apiKey: 'AIzaSyDPFGG_vFM1WgPnPZtYNWNgHfX3Y-F3usA',
-      authDomain: 'project-e8203.firebaseapp.com',
-      projectId: 'project-e8203',
-      storageBucket: 'project-e8203.appspot.com',
-      messagingSenderId: '562455088953',
-      appId: '1:562455088953:web:89e5004fa3ae828351a2e8',
-      measurementId: 'G-WV186Q0NVT',
+      apiKey: 'AIzaSyCGxQIpOdcAQrKwOM6foW4KNLRAhjiD5As',
+      authDomain: 'nicu-aaa44.firebaseapp.com',
+      projectId: 'nicu-aaa44',
+      storageBucket: 'nicu-aaa44.appspot.com',
+      messagingSenderId: '164392202363',
+      appId: '1:164392202363:web:3e81c63a20f0e71ac3f2de',
+      measurementId: 'G-0XKJ4C2YL0',
     );
 bool isLogin = false;
 

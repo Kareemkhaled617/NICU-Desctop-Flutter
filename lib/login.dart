@@ -1,8 +1,4 @@
 
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firedart/firedart.dart';
-import 'package:firedart/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
@@ -225,41 +221,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // login() async {
-  //   try {
-  //     if (_emailController.isNotEmpty && _passwordController.isNotEmpty) {
-  //       UserCredential userCredential = await FirebaseAuth.instance
-  //           .signInWithEmailAndPassword(
-  //               email: _emailController, password: _passwordController);
-  //       return userCredential;
-  //     } else {
-  //       print('isEmpty');
-  //     }
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'user-not-found') {
-  //       AwesomeDialog(
-  //         context: context,
-  //         dialogType: DialogType.INFO,
-  //         animType: AnimType.BOTTOMSLIDE,
-  //         title: 'Attend  !',
-  //         desc: 'This Account IsNot Exist',
-  //         btnCancelOnPress: () {},
-  //         btnOkOnPress: () {},
-  //       ).show();
-  //     } else if (e.code == 'wrong-password') {
-  //       AwesomeDialog(
-  //         context: context,
-  //         dialogType: DialogType.INFO,
-  //         animType: AnimType.BOTTOMSLIDE,
-  //         title: 'Attend  !',
-  //         desc: 'The password is Wrong',
-  //         btnOkOnPress: () {},
-  //       ).show();
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
+
   Future save_data()async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('status', true);

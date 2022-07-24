@@ -91,7 +91,7 @@ class _Sign_UpState extends State<Sign_Up> {
                       height: 20.0,
                     ),
                     buildTextFormField(
-                        type: TextInputType.text,
+                        type: TextInputType.number,
                         onSave: () => (val) {
                           _hospitalController = val;
                             },
@@ -101,8 +101,8 @@ class _Sign_UpState extends State<Sign_Up> {
                               }
                               return null;
                             },
-                        hint: 'Hospital name',
-                        label: 'Hospital name',
+                        hint: 'Hospital ID',
+                        label: 'Hospital ID',
                         pIcon: Icon(
                           Icons.info,
                           color: ColorManager.primary,
@@ -317,6 +317,7 @@ class _Sign_UpState extends State<Sign_Up> {
       dynamic signUpResult = await _firebaseAuthService.signUp(_emailController,_passwordController);
       if (signUpResult != null && !signUpResult.toString().contains("AuthException:")) {
         logger.i("SignUp Success");
+        await addDataEmail(_hospitalController!);
         Get.offAll(const MyHomePage());
         save_data();
       } else {
@@ -324,14 +325,12 @@ class _Sign_UpState extends State<Sign_Up> {
         // _firebaseSignInErrorAlert(context);
         logger.e(signUpResult.toString());
       }
-      var user = await FirebaseAuth.instance.getUser();
-       await addDataEmail(user.id);
+
       return;
     } else {
       print('Not Valid');
     }
   }
-
   addDataEmail(String id) async {
     var addUser = Firestore.instance.collection('hospital').document(id);
     addUser.set({
@@ -341,7 +340,9 @@ class _Sign_UpState extends State<Sign_Up> {
       'ID': id,
       'Image': 'null'
     });
+    print('added');
   }
+
 
 
 }
