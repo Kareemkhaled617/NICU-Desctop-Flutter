@@ -4,7 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nicu_desctop/page/more_details.dart';
 
 class Requests extends StatefulWidget {
-  const Requests({Key? key}) : super(key: key);
+   Requests({Key? key,required this.id}) : super(key: key);
+
+  String id;
 
   @override
   State<Requests> createState() => _RequestState();
@@ -128,7 +130,7 @@ class _RequestState extends State<Requests> {
               Expanded(child: Container()),
               ElevatedButton.icon(
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => MoreDetails(
                               name: req[index]['name'],
                               gender: req[index]['Gender'],
@@ -136,6 +138,7 @@ class _RequestState extends State<Requests> {
                               birthday: req[index]['Birthday'],
                               email: req[index]['Email'],
                               weight: req[index]['Weight'],
+                              phone: req[index]['phone'],
                             )));
                   },
                   icon: const Icon(Icons.read_more_rounded),

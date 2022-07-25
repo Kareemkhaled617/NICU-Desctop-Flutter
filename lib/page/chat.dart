@@ -24,8 +24,8 @@ class _ChatState extends State<Chat> {
   @override
   void initState() {
     getMassage();
-    Timer.periodic(
-        const Duration(milliseconds: 300), (Timer t) => getMassage());
+    // Timer.periodic(
+    //     const Duration(milliseconds: 300), (Timer t) => getMassage());
     super.initState();
   }
 
@@ -220,6 +220,14 @@ class _ChatState extends State<Chat> {
           });
         }));
   }
+  sendMassage()async{
+    var addUser = Firestore.instance.collection('users').document('');
+    addUser.set({
+      'Massage': '',
+      'time': DateFormat('hh:mm a').format(DateTime.now()).toString(),
+      'date': DateFormat('yyyy-MM-dd').format(DateTime.now()).toString(),
+    });
+  }
 
   addDataEmail(String id) async {
     var addUser = Firestore.instance.collection('hospital').document(id);
@@ -230,10 +238,6 @@ class _ChatState extends State<Chat> {
     });
   }
 
-  checkForNewSharedLists() {
-    print('--------------');
-    setState(() {});
-  }
 }
 
 class UserItem extends StatefulWidget {

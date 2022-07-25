@@ -8,17 +8,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'home_page.dart';
 import 'login.dart';
 
-const apiKey = "AIzaSyCGxQIpOdcAQrKwOM6foW4KNLRAhjiD5As";
-const projectId = "nicu-aaa44";
+const apiKey = "AIzaSyAVpOw_Qfwu8HthT7DiuHCA0oSq6B7hR8U";
+const projectId = "nicu-a74c1";
 
 FirebaseOptions get firebaseOptions => const FirebaseOptions(
-      apiKey: 'AIzaSyCGxQIpOdcAQrKwOM6foW4KNLRAhjiD5As',
-      authDomain: 'nicu-aaa44.firebaseapp.com',
-      projectId: 'nicu-aaa44',
-      storageBucket: 'nicu-aaa44.appspot.com',
-      messagingSenderId: '164392202363',
-      appId: '1:164392202363:web:3e81c63a20f0e71ac3f2de',
-      measurementId: 'G-0XKJ4C2YL0',
+    apiKey: "AIzaSyAVpOw_Qfwu8HthT7DiuHCA0oSq6B7hR8U",
+    authDomain: "nicu-a74c1.firebaseapp.com",
+    projectId: "nicu-a74c1",
+    storageBucket: "nicu-a74c1.appspot.com",
+    messagingSenderId: "257892270258",
+    appId: "1:257892270258:web:aae7fb73daa665b264c9ab",
+    measurementId: "G-D1PFZBQ1H2"
     );
 bool isLogin = false;
 
@@ -45,11 +45,11 @@ class MyApp extends StatelessWidget {
     return FluentApp(
       debugShowCheckedModeBanner: false,
       locale: Get.deviceLocale,
-      home: OverlaySupport(
+      home: const OverlaySupport(
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.system,
-           home:isLogin? const MyHomePage():const LoginPage(),
+           home:LoginPage(),
           // home: MyHomePage(),
         ),
       ),

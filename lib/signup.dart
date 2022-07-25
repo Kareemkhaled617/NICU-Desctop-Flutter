@@ -318,7 +318,7 @@ class _Sign_UpState extends State<Sign_Up> {
       if (signUpResult != null && !signUpResult.toString().contains("AuthException:")) {
         logger.i("SignUp Success");
         await addDataEmail(_hospitalController!);
-        Get.offAll(const MyHomePage());
+        Get.offAll( MyHomePage( id: _hospitalController!));
         save_data();
       } else {
         _signInError = signUpResult.toString();

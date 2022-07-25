@@ -27,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   bool pass = true;
    String? _emailController;
    String? _passwordController;
+   String? id;
   bool? the = false;
 
   @override
@@ -68,10 +69,45 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 30.0,
                     ),
+                    buildTextFormField(
+                      type: TextInputType.number,
+                        vall: false,
+                        validate: () =>
+                            (val) {
+                          if (val!.isEmpty) {
+                            return "Invalid ID!";
+                          }
+                          return null;
+                        },
+                        onSave: () =>
+                            (val) {
+                          setState(() {
+                            id = val;
+                          });
+                        },
+                        hint: 'Enter ID'.tr,
+                        label: 'ID'.tr,
+                        pIcon: Icon(
+                          Icons.person,
+                          color: Get.isDarkMode
+                              ? ColorManager.primary
+                              : ColorManager.darkPrimary,
+                        ),
+                        sIcon: Icon(
+                          Icons.verified_user_outlined,
+                          color: Get.isDarkMode
+                              ? ColorManager.primary
+                              : ColorManager.darkPrimary,
+                        ),
+                        onTab: () {}),
+                    const SizedBox(
+                      height: 30.0,
+                    ),
                     const SizedBox(
                       height: 30.0,
                     ),
                     buildTextFormField(
+                      type: TextInputType.emailAddress,
                         vall: false,
                         validate: () =>
                             (val) {
@@ -105,6 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 30.0,
                     ),
                     buildTextFormField(
+                      type: TextInputType.visiblePassword,
                         vall: pass,
                         validate: () =>
                             (val) {
@@ -236,11 +273,12 @@ class _LoginPageState extends State<LoginPage> {
     required Function() validate,
     required Function() onSave,
     required bool vall,
+    required TextInputType type,
   }) {
     return TextFormField(
       validator: validate(),
       onSaved: onSave(),
-      // keyboardType: TextInputType.visiblePassword,
+       keyboardType: type,
       obscureText: vall,
       decoration: InputDecoration(
         labelText: label,
@@ -280,7 +318,7 @@ class _LoginPageState extends State<LoginPage> {
       dynamic signUpResult = await _firebaseAuthService.signIn(_emailController!,_passwordController!);
       if (signUpResult != null && !signUpResult.toString().contains("AuthException:")) {
         logger.i("SignIn Success");
-        Get.offAll(const MyHomePage());
+        Get.offAll( MyHomePage(id: id!,));
         save_data();
       } else {
         // _firebaseSignInErrorAlert(context);
